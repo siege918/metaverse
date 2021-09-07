@@ -125,3 +125,59 @@ body, #root {
   margin-left: 1px;
   user-select: none;
 }
+
+.Browser .Content {
+  display: grid;
+  grid-template-rows: 20px 1fr;
+}
+
+.Browser .TabsContainer {
+  display: grid;
+  grid-template-columns: 100px 100px 100px 100px;
+  column-gap: 3px;
+  padding-left: 3px;
+  user-select: none;
+}
+
+.Browser .TabContainer:last-child {
+  border-right-style: solid;
+}
+
+.Browser .TabsContainer .Tab {
+  width: 100px;
+  height: 80%;
+  border-radius: 2px;
+  border-color: black;
+  top: 10%;
+  position: relative;
+  font-size: 6px;
+}
+
+.Browser .TabsContainer .TabText {
+  margin-top: 5px;
+  padding-left: 3px;
+}
+
+.Browser .TabsContainer .Tab.Active {
+  background-color: #d5d5d3;
+}
+
+.Browser .TabsContainer .Tab:hover {
+  border-style: outset;
+  border-width: 1px;
+  top: 5%;
+  cursor: pointer;
+}
+
+.Browser .TabsContainer .Tab.Active:hover {
+  border-style: none;
+  top: 10%;
+  cursor: initial;
+}
+
+.Browser .ContentContainer {
+  background-color: white;
+  margin: 0px 3px 3px 3px;
+  border-style: inset;
+  border-width: 1px;
+}

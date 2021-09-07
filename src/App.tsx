@@ -1,14 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Window } from './Window';
 import { Chat } from './chat/Chat';
+import { Browser } from './browser/Browser';
 
 function App() {
   return (
     <div className="App">
       <Chat />
-      <Window title="FlameWolf" className="Browser" />
+      <Browser />
     </div>
   );
 }
