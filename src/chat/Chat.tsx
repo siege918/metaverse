@@ -31,6 +31,16 @@ export class Chat extends React.Component<ChatProps, ChatState> {
         };
     }
 
+    componentDidUpdate(oldProps: ChatProps, oldState: ChatState) {
+        if (this.state.messages.length > oldState.messages.length) {
+            const chatDiv = document.getElementsByClassName('Messages');
+
+            for (const el of chatDiv) {
+                el.scrollTop = el.scrollHeight;
+            }
+        }
+    }
+
     render() {
         const { userName } = this.state;
         return (
