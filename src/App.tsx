@@ -2,19 +2,44 @@ import React from 'react';
 import './App.css';
 import { Chat } from './chat/Chat';
 import { Browser } from './browser/Browser';
-import { FlagManager } from './FlagManager';
+import { Flag, FlagManager, FlagMap } from './FlagManager';
 import { BrowserManager } from './BrowserManager';
 
-const flagManager: FlagManager = new FlagManager();
-const browserManager: BrowserManager = new BrowserManager();
+export interface AppState {
+  FlagMap: FlagMap;
+}
 
-function App() {
-  return (
+class App extends React.Component<any, AppState> {
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      FlagMap: {}
+    }
+    console.log(this.state);
+  }
+
+  setFlag = (flag: Flag, val: boolean) => {
+    console.log(this.state);
+    this.setState({
+      FlagMap: {
+        ...this.state.FlagMap,
+        [flag]: val
+      }
+    });
+  }
+
+  helperMethods = {
+    setFlag: this.setFlag
+  }
+
+  render() {return (
     <div className="App">
-      <Chat BrowserManager={browserManager} FlagManager={flagManager} />
-      <Browser BrowserManager={browserManager} FlagManager={flagManager} />
+      <Chat {...this.state} {...this.helperMethods} />
+      <Browser {...this.state} {...this.helperMethods} />
     </div>
   );
+  }
 }
 
 export default App;

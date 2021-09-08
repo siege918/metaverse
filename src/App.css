@@ -69,6 +69,7 @@ body, #root {
   margin: 2px;
   border-style: inset;
   border-width: 1px;
+  font-size: 6px;
 }
 
 .Chat .Content .Header {

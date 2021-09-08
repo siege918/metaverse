@@ -1,23 +1,20 @@
 import React from 'react';
 import Message from './Messages/Message';
-import { USERS, default as Users } from './Users';
-import { Window } from '../Window'
-import { FlagManager } from '../FlagManager';
-import UserMessage from './Messages/UserMessage';
-import { BrowserManager } from '../BrowserManager';
+import { Window } from '../Window';
+import DebugMessage from './Messages/DebugMessage';
+import CommonProps from '../CommonProps';
+import { ReactElement } from 'react';
 
 interface ChatState {
-    messages: Message[];
+    messages: ReactElement[];
     userName: string;
     avatar?: string;
     disableChat: boolean;
 }
 
-export interface ChatProps {
-    initialMessages?: Message[];
-    BrowserManager: BrowserManager;
-    FlagManager: FlagManager;
-}
+export type ChatProps = {
+    initialMessages?: ReactElement[];
+} & CommonProps;
 
 export class Chat extends React.Component<ChatProps, ChatState> {
     constructor(props: ChatProps) {
@@ -25,11 +22,7 @@ export class Chat extends React.Component<ChatProps, ChatState> {
         this.state = {
             userName: 'Me',
             messages: [
-                new UserMessage(
-                    Users[USERS.jonii],
-                    new Date(),
-                    "Hello world!"
-                ),
+                <DebugMessage {...this.props} />,
                 ...(props.initialMessages ?? [])
             ],
             disableChat: true
@@ -62,7 +55,7 @@ export class Chat extends React.Component<ChatProps, ChatState> {
                     </div>
                 </div>
                 <div className="Messages">
-                    {messages.map(message => message.render(this.props.FlagManager, this.props.BrowserManager))}
+                    {messages}
                 </div>
                 <div className="EntryContainer">
                     <textarea name="entry" className="Entry" placeholder="Type your chat message here..." disabled={this.state.disableChat} />

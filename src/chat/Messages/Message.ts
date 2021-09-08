@@ -1,13 +1,14 @@
+import React from "react";
 import { BrowserManager } from "../../BrowserManager";
+import CommonProps from "../../CommonProps";
 import { FlagManager } from "../../FlagManager";
 
 export enum MessageType {
     USER,
-    SYSTEM
+    SYSTEM,
+    DEBUG
 }
 
-export default abstract class Message {
+export default abstract class Message extends React.Component<CommonProps> {
     abstract type: MessageType;
-
-    abstract render(FlagManager: FlagManager, BrowserManager: BrowserManager): JSX.Element;
 }

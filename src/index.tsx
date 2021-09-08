@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserManager } from './BrowserManager';
+import { FlagManager } from './FlagManager';
 
 ReactDOM.render(
   <React.StrictMode>

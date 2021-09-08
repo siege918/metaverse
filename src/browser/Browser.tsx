@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserManager } from "../BrowserManager";
+import CommonProps from "../CommonProps";
 import { FlagManager, Flag } from "../FlagManager";
 import { Window } from '../Window';
 
@@ -13,10 +14,7 @@ interface BrowserState {
     selectedTab: TabId;
 }
 
-export interface BrowserProps {
-    BrowserManager: BrowserManager;
-    FlagManager: FlagManager;
-}
+export type BrowserProps = CommonProps;
 
 interface Tab {
     id: TabId;
@@ -35,9 +33,13 @@ export class Browser extends React.Component<BrowserProps, BrowserState> {
 
     private tabs: Tab[] = [
         { id: TabId.Games, text: "Big Boom Games", favicon: 'big-boom-favicon.png' },
-        { id: TabId.Movies, text: "MovieEinstein", isVisible: () => this.props.FlagManager.getFlag(Flag.HasUnlockedMovieEinstein) },
-        { id: TabId.Tracker, text: "Metaverse Tracker", isVisible: () => this.props.FlagManager.getFlag(Flag.HasUnlockedMetaverseTracker) }
+        { id: TabId.Movies, text: "MovieEinstein", isVisible: () => !!this.props.FlagMap[Flag.HasUnlockedMovieEinstein] },
+        { id: TabId.Tracker, text: "Metaverse Tracker", isVisible: () => !!this.props.FlagMap[Flag.HasUnlockedMetaverseTracker] }
     ]
+
+    componentDidUpdate() {
+        console.log('updating');
+    }
 
     getTabs = () => {
         const { selectedTab } = this.state;
