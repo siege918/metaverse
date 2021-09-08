@@ -56,7 +56,7 @@ export class Browser extends React.Component<BrowserProps, BrowserState> {
         ));
     }
 
-    getTabOnClick = (tabId: string) => {
+    getTabOnClick = (tabId: TabId) => {
         return () => {
             this.setState({
                 selectedTab: tabId
