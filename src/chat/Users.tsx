@@ -10,7 +10,8 @@ interface UserMap {
 
 const Users: UserMap = {
     "jonii": {
-        name: "jonii"
+        name: "jonii",
+        color: "coral"
     }
 }
 

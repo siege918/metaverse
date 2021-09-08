@@ -1,8 +1,9 @@
 import React from 'react';
-import Message from './Message';
+import Message from './Messages/Message';
 import { USERS, default as Users } from './Users';
 import { Window } from '../Window'
 import { FlagManager } from '../FlagManager';
+import UserMessage from './Messages/UserMessage';
 
 interface ChatState {
     messages: Message[];
@@ -22,11 +23,11 @@ export class Chat extends React.Component<ChatProps, ChatState> {
         this.state = {
             userName: 'Me',
             messages: [
-                {
-                    user: Users[USERS.jonii],
-                    timestamp: new Date(),
-                    text: "Hello world!"
-                },
+                new UserMessage(
+                    Users[USERS.jonii],
+                    new Date(),
+                    "Hello world!"
+                ),
                 ...(props.initialMessages ?? [])
             ],
             disableChat: true
@@ -44,7 +45,7 @@ export class Chat extends React.Component<ChatProps, ChatState> {
     }
 
     render() {
-        const { userName } = this.state;
+        const { userName, messages } = this.state;
         return (
             <Window title="CBT Messenger" className="Chat">
                 <div className="Header">
@@ -59,7 +60,7 @@ export class Chat extends React.Component<ChatProps, ChatState> {
                     </div>
                 </div>
                 <div className="Messages">
-
+                    {messages.map(message => message.render())}
                 </div>
                 <div className="EntryContainer">
                     <textarea name="entry" className="Entry" placeholder="Type your chat message here..." disabled={this.state.disableChat} />
