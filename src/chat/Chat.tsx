@@ -2,6 +2,7 @@ import React from 'react';
 import Message from './Message';
 import { USERS, default as Users } from './Users';
 import { Window } from '../Window'
+import { FlagManager } from '../FlagManager';
 
 interface ChatState {
     messages: Message[];
@@ -12,6 +13,7 @@ interface ChatState {
 
 export interface ChatProps {
     initialMessages?: Message[];
+    FlagManager: FlagManager;
 }
 
 export class Chat extends React.Component<ChatProps, ChatState> {
@@ -47,7 +49,7 @@ export class Chat extends React.Component<ChatProps, ChatState> {
             <Window title="CBT Messenger" className="Chat">
                 <div className="Header">
                     <div className="AvatarContainer">
-                        <img className="Avatar" src="/default.png" draggable="false" />
+                        <img alt={`${userName}'s Avatar`} className="Avatar" src="/default.png" draggable="false" />
                     </div>
                     <div className="UsernameContainer">
                         <input autoComplete="off" value={userName} onChange={this.onUserNameChange} />

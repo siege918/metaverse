@@ -1,4 +1,5 @@
 import React from "react";
+import { FlagManager, Flag } from "../FlagManager";
 import { Window } from '../Window';
 
 interface BrowserState {
@@ -6,13 +7,15 @@ interface BrowserState {
 }
 
 export interface BrowserProps {
-
+    FlagManager: FlagManager
 }
 
-const tabs = [
-    { id: "Tab1", text: "Tab 1" },
-    { id: "Tab2", text: "Tab 2" }
-]
+interface Tab {
+    id: string;
+    text: string;
+    isVisible?: () => boolean;
+    favicon?: string;
+}
 
 export class Browser extends React.Component<BrowserProps, BrowserState> {
     constructor(props: BrowserProps) {
@@ -22,11 +25,22 @@ export class Browser extends React.Component<BrowserProps, BrowserState> {
         }
     }
 
+    private tabs: Tab[] = [
+        { id: "Tab1", text: "Big Boom Games", favicon: 'big-boom-favicon.png' },
+        { id: "Tab2", text: "MovieEinstein", isVisible: () => this.props.FlagManager.getFlag(Flag.HasUnlockedMovieEinstein) },
+        { id: "Tab3", text: "Metaverse Tracker", isVisible: () => this.props.FlagManager.getFlag(Flag.HasUnlockedMetaverseTracker) }
+    ]
+
     getTabs = () => {
         const { selectedTab } = this.state;
 
-        return tabs.map(tab => (
+        return this.tabs
+            .filter(tab => tab.isVisible ? tab.isVisible() : true)
+            .map(tab => (
             <div key={tab.id} onClick={this.getTabOnClick(tab.id)} className={`Tab ${tab.id === selectedTab ? 'Active' : ''}`}>
+                <div className="Favicon">
+                    <img alt={`Favicon for ${tab.text}`} src={tab.favicon ?? 'default-favicon.png'}/>
+                </div>
                 <div className="TabText">
                     {tab.text}
                 </div>
