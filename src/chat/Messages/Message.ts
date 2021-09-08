@@ -1,3 +1,4 @@
+import { BrowserManager } from "../../BrowserManager";
 import { FlagManager } from "../../FlagManager";
 
 export enum MessageType {
@@ -8,5 +9,5 @@ export enum MessageType {
 export default abstract class Message {
     abstract type: MessageType;
 
-    abstract render(FlagManager: FlagManager): JSX.Element;
+    abstract render(FlagManager: FlagManager, BrowserManager: BrowserManager): JSX.Element;
 }

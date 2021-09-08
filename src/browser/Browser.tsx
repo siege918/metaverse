@@ -1,17 +1,25 @@
 import React from "react";
+import { BrowserManager } from "../BrowserManager";
 import { FlagManager, Flag } from "../FlagManager";
 import { Window } from '../Window';
 
+export enum TabId {
+    Games,
+    Movies,
+    Tracker
+}
+
 interface BrowserState {
-    selectedTab: string;
+    selectedTab: TabId;
 }
 
 export interface BrowserProps {
-    FlagManager: FlagManager
+    BrowserManager: BrowserManager;
+    FlagManager: FlagManager;
 }
 
 interface Tab {
-    id: string;
+    id: TabId;
     text: string;
     isVisible?: () => boolean;
     favicon?: string;
@@ -21,14 +29,14 @@ export class Browser extends React.Component<BrowserProps, BrowserState> {
     constructor(props: BrowserProps) {
         super(props);
         this.state = {
-            selectedTab: 'Tab1'
+            selectedTab: TabId.Games
         }
     }
 
     private tabs: Tab[] = [
-        { id: "Tab1", text: "Big Boom Games", favicon: 'big-boom-favicon.png' },
-        { id: "Tab2", text: "MovieEinstein", isVisible: () => this.props.FlagManager.getFlag(Flag.HasUnlockedMovieEinstein) },
-        { id: "Tab3", text: "Metaverse Tracker", isVisible: () => this.props.FlagManager.getFlag(Flag.HasUnlockedMetaverseTracker) }
+        { id: TabId.Games, text: "Big Boom Games", favicon: 'big-boom-favicon.png' },
+        { id: TabId.Movies, text: "MovieEinstein", isVisible: () => this.props.FlagManager.getFlag(Flag.HasUnlockedMovieEinstein) },
+        { id: TabId.Tracker, text: "Metaverse Tracker", isVisible: () => this.props.FlagManager.getFlag(Flag.HasUnlockedMetaverseTracker) }
     ]
 
     getTabs = () => {

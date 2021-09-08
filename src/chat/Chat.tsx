@@ -4,6 +4,7 @@ import { USERS, default as Users } from './Users';
 import { Window } from '../Window'
 import { FlagManager } from '../FlagManager';
 import UserMessage from './Messages/UserMessage';
+import { BrowserManager } from '../BrowserManager';
 
 interface ChatState {
     messages: Message[];
@@ -14,6 +15,7 @@ interface ChatState {
 
 export interface ChatProps {
     initialMessages?: Message[];
+    BrowserManager: BrowserManager;
     FlagManager: FlagManager;
 }
 
@@ -60,7 +62,7 @@ export class Chat extends React.Component<ChatProps, ChatState> {
                     </div>
                 </div>
                 <div className="Messages">
-                    {messages.map(message => message.render())}
+                    {messages.map(message => message.render(this.props.FlagManager, this.props.BrowserManager))}
                 </div>
                 <div className="EntryContainer">
                     <textarea name="entry" className="Entry" placeholder="Type your chat message here..." disabled={this.state.disableChat} />
