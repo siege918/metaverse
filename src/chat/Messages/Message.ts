@@ -4,6 +4,7 @@ import CommonProps from "../../CommonProps";
 export enum MessageType {
     USER,
     SYSTEM,
+    PLAYER,
     DEBUG
 }
 

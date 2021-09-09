@@ -4,10 +4,12 @@ import { Chat } from './chat/Chat';
 import { Browser, TabId } from './browser/Browser';
 import { Flags, FlagMap } from './Flags';
 import { BrowserListener } from './BrowserListener';
+import ChatEventListener from './chat/ChatEventListener';
 
 export interface AppState {
   FlagMap: FlagMap;
   BrowserListener: BrowserListener;
+  ChatEventListener: ChatEventListener;
 }
 
 class App extends React.Component<any, AppState> {
@@ -16,7 +18,8 @@ class App extends React.Component<any, AppState> {
     super(props);
     this.state = {
       FlagMap: {},
-      BrowserListener: () => null
+      BrowserListener: () => null,
+      ChatEventListener: () => null
     }
     console.log(this.state);
   }
@@ -38,15 +41,25 @@ class App extends React.Component<any, AppState> {
   }
 
   navigateBrowser = (tabId: TabId, pageId: string) => {
-    if (this.state.BrowserListener) {
-      this.state.BrowserListener(tabId, pageId);
-    }
+    this.state.BrowserListener(tabId, pageId);
+  }
+
+  setChatEventListener = (ChatEventListener: ChatEventListener) => {
+    this.setState({
+      ChatEventListener
+    });
+  }
+
+  triggerChatEvent = (eventKey: string) => {
+    this.state.ChatEventListener(eventKey);
   }
 
   helperMethods = {
     setFlag: this.setFlag,
     setBrowserListener: this.setBrowserListener,
-    navigateBrowser: this.navigateBrowser
+    navigateBrowser: this.navigateBrowser,
+    setChatEventListener: this.setChatEventListener,
+    triggerChatEvent: this.triggerChatEvent
   }
 
   render() {return (

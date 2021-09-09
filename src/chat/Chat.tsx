@@ -6,6 +6,7 @@ import { ReactElement } from 'react';
 import UserMessage from './Messages/UserMessage';
 import { UserKey } from './Users';
 import { LoremIpsum } from 'lorem-ipsum';
+import PlayerMessage from './Messages/PlayerMessage';
 
 interface ChatState {
     messages: ReactElement[];
@@ -33,6 +34,8 @@ const generateTestMessages = (props: CommonProps) => {
 }
 
 export class Chat extends React.Component<ChatProps, ChatState> {
+    private EventQueue: string[] = [];
+
     constructor(props: ChatProps) {
         super(props);
         this.state = {
@@ -87,4 +90,8 @@ export class Chat extends React.Component<ChatProps, ChatState> {
             userName: ev.target.value
         });
     };
+
+    startEventProcessor = () => {
+
+    }
 }
