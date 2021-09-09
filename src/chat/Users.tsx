@@ -1,7 +1,8 @@
 import User from "./User";
 
-export enum USERS {
-    jonii = "jonii"
+export enum UserKey {
+    jonii = "jonii",
+    chuck = "chuck"
 }
 
 interface UserMap {
@@ -12,6 +13,10 @@ const Users: UserMap = {
     "jonii": {
         name: "jonii",
         color: "coral"
+    },
+    "chuck": {
+        name: "ChuckRockFan69",
+        color: "purple"
     }
 }
 

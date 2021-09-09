@@ -1,9 +1,11 @@
 import React from 'react';
-import Message from './Messages/Message';
 import { Window } from '../Window';
 import DebugMessage from './Messages/DebugMessage';
 import CommonProps from '../CommonProps';
 import { ReactElement } from 'react';
+import UserMessage from './Messages/UserMessage';
+import { UserKey } from './Users';
+import { LoremIpsum } from 'lorem-ipsum';
 
 interface ChatState {
     messages: ReactElement[];
@@ -16,6 +18,20 @@ export type ChatProps = {
     initialMessages?: ReactElement[];
 } & CommonProps;
 
+const generateTestMessages = (props: CommonProps) => {
+    const lorem = new LoremIpsum();
+    const messageCount = 75;
+
+    const messages = [];
+
+    for (var i = 0; i < messageCount; i++) {
+        const user = i % 2 == 0 ? UserKey.chuck : UserKey.jonii
+        messages.push(<UserMessage {...props} Text={lorem.generateSentences(2)} User={user} />)
+    }
+
+    return messages;
+}
+
 export class Chat extends React.Component<ChatProps, ChatState> {
     constructor(props: ChatProps) {
         super(props);
@@ -23,6 +39,8 @@ export class Chat extends React.Component<ChatProps, ChatState> {
             userName: 'Me',
             messages: [
                 <DebugMessage {...this.props} />,
+                <UserMessage {...this.props} User={UserKey.jonii} Text="This is a test message" />,
+                ...generateTestMessages(this.props),
                 ...(props.initialMessages ?? [])
             ],
             disableChat: true

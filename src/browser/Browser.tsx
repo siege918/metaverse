@@ -1,7 +1,6 @@
 import React from "react";
-import { BrowserManager } from "../BrowserManager";
 import CommonProps from "../CommonProps";
-import { FlagManager, Flag } from "../FlagManager";
+import { Flags } from "../Flags";
 import { Window } from '../Window';
 
 export enum TabId {
@@ -29,12 +28,13 @@ export class Browser extends React.Component<BrowserProps, BrowserState> {
         this.state = {
             selectedTab: TabId.Games
         }
+        this.props.setBrowserListener(this.navigate)
     }
 
     private tabs: Tab[] = [
         { id: TabId.Games, text: "Big Boom Games", favicon: 'big-boom-favicon.png' },
-        { id: TabId.Movies, text: "MovieEinstein", isVisible: () => !!this.props.FlagMap[Flag.HasUnlockedMovieEinstein] },
-        { id: TabId.Tracker, text: "Metaverse Tracker", isVisible: () => !!this.props.FlagMap[Flag.HasUnlockedMetaverseTracker] }
+        { id: TabId.Movies, text: "MovieEinstein", isVisible: () => !!this.props.FlagMap[Flags.HasUnlockedMovieEinstein] },
+        { id: TabId.Tracker, text: "Metaverse Tracker", isVisible: () => !!this.props.FlagMap[Flags.HasUnlockedMetaverseTracker] }
     ]
 
     componentDidUpdate() {
@@ -64,6 +64,12 @@ export class Browser extends React.Component<BrowserProps, BrowserState> {
                 selectedTab: tabId
             })
         };
+    }
+
+    navigate = (tabId: TabId, pageId: string) => {
+        this.setState({
+            selectedTab: tabId
+        })
     }
 
     render() {

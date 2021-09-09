@@ -1,13 +1,25 @@
 import React from 'react';
-import { FlagManager } from '../../FlagManager';
+import User from '../User';
+import { UserKey, default as Users } from '../Users';
 
-import User from "../User";
 import Message, { MessageType } from "./Message";
 
-export default class UserMessage extends Message {
+export interface UserMessageProps {
+    User: UserKey;
+    Text: string;
+}
+
+export default class UserMessage extends Message<UserMessageProps> {
     type = MessageType.USER;
 
     render() {
-        return (<></>);
+        const User = Users[this.props.User];
+
+        return (
+            <div className="UserMessage">
+                <span className="UserName" style={{ color: User.color }}>{User.name}</span>&nbsp;
+                <span className="Text">{this.props.Text}</span>
+            </div>
+        );
     }
 }

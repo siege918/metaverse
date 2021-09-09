@@ -29,6 +29,8 @@ body, #root {
   grid-template-rows: 10px 1fr;
   overflow: hidden;
   background-color: #bebebe;
+  height: 100%;
+  box-sizing:border-box;
 }
 
 .Window > .Taskbar {
@@ -51,11 +53,21 @@ body, #root {
   border-width: 1px;
   border-radius: 1px;
   border-style: inset;
+  overflow: auto;
+}
+
+.Window .Messages div {
+  padding-bottom: 3px;
+}
+
+.Window .Messages div:last-child {
+  padding-bottom: 5px;
 }
 
 .Chat .Content {
   display: grid;
   grid-template-rows: 30px 1fr 30px;
+  height: 100%;
 }
 
 .Chat .Content .Header {
@@ -65,11 +77,12 @@ body, #root {
 .Chat .Messages {
   background-color: white;
   width: calc(100% - 6px);
-  height: calc(100% - 6px);
+  max-height: calc(100% - 6px);
   margin: 2px;
   border-style: inset;
   border-width: 1px;
   font-size: 6px;
+  overflow-y: scroll;
 }
 
 .Chat .Content .Header {
@@ -119,6 +132,15 @@ body, #root {
   height: 60%;
   margin: 2px;
   resize: none;
+}
+
+.Chat .UserMessage {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.Chat .UserMessage .UserName {
+  font-weight: bold;
 }
 
 .OnlineStatus {
