@@ -1,6 +1,11 @@
+import { ChatEvent } from './ChatEvent';
 import TestEvent from './TestEvent';
 
-const EventMap = {
+interface IEventMap {
+    [key: string]: ChatEvent;
+}
+
+const EventMap: IEventMap = {
     TestEvent 
 };
 

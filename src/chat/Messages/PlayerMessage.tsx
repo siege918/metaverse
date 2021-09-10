@@ -8,7 +8,7 @@ export interface PlayerMessageProps {
 }
 
 export default class PlayerMessage extends Message<PlayerMessageProps> {
-    type =  MessageType.DEBUG;
+    type =  MessageType.PLAYER;
 
     render() {
         return (

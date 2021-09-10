@@ -6,13 +6,15 @@ import { ReactElement } from 'react';
 import UserMessage from './Messages/UserMessage';
 import { UserKey } from './Users';
 import { LoremIpsum } from 'lorem-ipsum';
-import PlayerMessage from './Messages/PlayerMessage';
+import EventMap from '../events';
+import { timeout } from '../helpers';
 
 interface ChatState {
     messages: ReactElement[];
     userName: string;
     avatar?: string;
     disableChat: boolean;
+    eventProcessorRunning: boolean;
 }
 
 export type ChatProps = {
@@ -26,7 +28,7 @@ const generateTestMessages = (props: CommonProps) => {
     const messages = [];
 
     for (var i = 0; i < messageCount; i++) {
-        const user = i % 2 == 0 ? UserKey.chuck : UserKey.jonii
+        const user = i % 2 === 0 ? UserKey.chuck : UserKey.jonii
         messages.push(<UserMessage {...props} Text={lorem.generateSentences(2)} User={user} />)
     }
 
@@ -43,11 +45,14 @@ export class Chat extends React.Component<ChatProps, ChatState> {
             messages: [
                 <DebugMessage {...this.props} />,
                 <UserMessage {...this.props} User={UserKey.jonii} Text="This is a test message" />,
-                ...generateTestMessages(this.props),
+                //...generateTestMessages(this.props),
                 ...(props.initialMessages ?? [])
             ],
-            disableChat: true
+            disableChat: true,
+            eventProcessorRunning: false
         };
+
+        this.props.setChatEventListener(this.chatEventListener);
     }
 
     componentDidUpdate(oldProps: ChatProps, oldState: ChatState) {
@@ -91,7 +96,45 @@ export class Chat extends React.Component<ChatProps, ChatState> {
         });
     };
 
-    startEventProcessor = () => {
+    chatEventListener = (eventKey: string) => {
+        console.log("Event pushed");
+        this.EventQueue.push(eventKey);
+        if (!this.state.eventProcessorRunning) {
+            console.log("Event processor started");
+            this.startEventProcessor();
+        }
+    }
 
+    startEventProcessor = async () => {
+        this.setState({
+            eventProcessorRunning: true
+        });
+        while (this.EventQueue.length) {
+            const event = this.EventQueue.shift();
+            console.log(`Processing event "${event}"`);
+            if (event) {
+                await this.processEvent(event);
+            }
+        }
+        console.log("Event queue is empty");
+        this.setState({
+            eventProcessorRunning: false
+        })
+    }
+
+    processEvent = async (eventId: string) => {
+        const event = EventMap[eventId];
+
+        if (event) {
+            for (const eventItem of event) {
+                await timeout(eventItem.typingTime);
+                this.setState({
+                    messages: [
+                        ...this.state.messages,
+                        <UserMessage User={eventItem.UserKey} Text={eventItem.Text} {...this.props} />
+                    ]
+                })
+            }
+        }
     }
 }
