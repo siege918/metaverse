@@ -30,12 +30,12 @@ export const parseText = (val: string, props: CommonProps) => {
         output.push(splitString[counter]);
 
         const type = splitString[counter + 1];
-        const arg = splitString[counter + 2];
+        const args = splitString[counter + 2].split(';');
         const body = splitString[counter + 3];
 
         if (type === 'E') {
             output.push(
-              <EventTrigger {...props} eventName={arg}>
+              <EventTrigger {...props} eventName={args[0]}>
                 {body}
               </EventTrigger>
             )

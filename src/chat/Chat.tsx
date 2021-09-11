@@ -7,7 +7,7 @@ import UserMessage from './Messages/UserMessage';
 import { UserKey } from './Users';
 import { LoremIpsum } from 'lorem-ipsum';
 import EventMap from '../events';
-import { timeout } from '../helpers';
+import { get, timeout } from '../helpers';
 
 interface ChatState {
     messages: ReactElement[];
@@ -39,6 +39,8 @@ const generateTestMessages = (props: CommonProps) => {
 export class Chat extends React.Component<ChatProps, ChatState> {
     private EventQueue: string[] = [];
 
+    private getUIText = (id: string) => get(this.props.LocaleStrings, `Chat.UI.${id}`, '');
+
     constructor(props: ChatProps) {
         super(props);
         this.state = {
@@ -69,7 +71,7 @@ export class Chat extends React.Component<ChatProps, ChatState> {
     render() {
         const { userName, messages } = this.state;
         return (
-            <Window title="MSM Messenger" className="Chat">
+            <Window title={this.getUIText('Header')} className="Chat">
                 <div className="Header">
                     <div className="AvatarContainer">
                         <img alt={`${userName}'s Avatar`} className="Avatar" src="/default.png" draggable="false" />
@@ -85,7 +87,7 @@ export class Chat extends React.Component<ChatProps, ChatState> {
                     {messages}
                 </div>
                 <div className="EntryContainer">
-                    <textarea name="entry" className="Entry" placeholder="Type your chat message here..." disabled={this.state.disableChat} />
+                    <textarea name="entry" className="Entry" placeholder={this.getUIText('Placeholder')} disabled={this.state.disableChat} />
                 </div>
             </Window>
         );
@@ -98,10 +100,8 @@ export class Chat extends React.Component<ChatProps, ChatState> {
     };
 
     chatEventListener = (eventKey: string) => {
-        console.log("Event pushed");
         this.EventQueue.push(eventKey);
         if (!this.state.eventProcessorRunning) {
-            console.log("Event processor started");
             this.startEventProcessor();
         }
     }
@@ -112,12 +112,11 @@ export class Chat extends React.Component<ChatProps, ChatState> {
         });
         while (this.EventQueue.length) {
             const event = this.EventQueue.shift();
-            console.log(`Processing event "${event}"`);
             if (event) {
                 await this.processEvent(event);
             }
         }
-        console.log("Event queue is empty");
+        
         this.setState({
             eventProcessorRunning: false
         })

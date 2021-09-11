@@ -1,4 +1,21 @@
 {
+    "Chat": {
+        "UI": {
+            "Header": "MSM Messenger",
+            "Online": "Online",
+            "Placeholder": "Type your chat message here..."
+        }
+    },
+    "Browser": {
+        "UI": {
+            "Header": "FlameWolf",
+            "Tabs": {
+                "Games": "BigBoomGames",
+                "Movies": "MovieEinstein",
+                "Tracker": "Metaverse Tracker"
+            }
+        }
+    },
     "DEBUG": {
         "TestEvent": "Click <E=TestEvent>HERE</> to trigger the test event"
     }

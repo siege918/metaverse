@@ -3,10 +3,8 @@ import { BrowserListener } from "./BrowserListener";
 import { Flags, FlagMap } from "./Flags";
 import ChatEventListener from "./chat/ChatEventListener";
 
-type LocaleDictionary = {[key: string]: string}
-
 export type LocaleMap = {
-  [key: string]: LocaleDictionary | string;
+  [key: string]: LocaleMap | string;
 }
 
 

@@ -28,7 +28,6 @@ class App extends React.Component<any, AppState> {
   }
 
   setFlag = (flag: Flags, val: boolean) => {
-    console.log(this.state);
     this.setState({
       FlagMap: {
         ...this.state.FlagMap,

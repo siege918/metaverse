@@ -1,6 +1,7 @@
 import React from "react";
 import CommonProps from "../CommonProps";
 import { Flags } from "../Flags";
+import { get } from "../helpers";
 import { Window } from '../Window';
 import { SiteText } from "./SiteText";
 
@@ -32,15 +33,13 @@ export class Browser extends React.Component<BrowserProps, BrowserState> {
         this.props.setBrowserListener(this.navigate)
     }
 
-    private tabs: Tab[] = [
-        { id: TabId.Games, text: "Big Boom Games", favicon: 'big-boom-favicon.png' },
-        { id: TabId.Movies, text: "MovieEinstein", isVisible: () => !!this.props.FlagMap[Flags.HasUnlockedMovieEinstein] },
-        { id: TabId.Tracker, text: "Metaverse Tracker", isVisible: () => !!this.props.FlagMap[Flags.HasUnlockedMetaverseTracker] }
-    ]
+    private getUIText = (id: string) => get(this.props.LocaleStrings, `Browser.UI.${id}`, '');
 
-    componentDidUpdate() {
-        console.log('updating');
-    }
+    private tabs: Tab[] = [
+        { id: TabId.Games, text: this.getUIText('Tabs.Games'), favicon: 'big-boom-favicon.png' },
+        { id: TabId.Movies, text: this.getUIText('Tabs.Movies'), isVisible: () => !!this.props.FlagMap[Flags.HasUnlockedMovieEinstein] },
+        { id: TabId.Tracker, text: this.getUIText('Tabs.Tracker'), isVisible: () => !!this.props.FlagMap[Flags.HasUnlockedMetaverseTracker] }
+    ]
 
     getTabs = () => {
         const { selectedTab } = this.state;
@@ -75,7 +74,7 @@ export class Browser extends React.Component<BrowserProps, BrowserState> {
 
     render() {
         return (
-            <Window title="FlameWolf" className="Browser">
+            <Window title={this.getUIText('Header')} className="Browser">
                 <div className="TabsContainer">
                     {this.getTabs()}
                 </div>
