@@ -21,6 +21,7 @@ export type ChatProps = {
     initialMessages?: ReactElement[];
 } & CommonProps;
 
+// eslint-disable-next-line
 const generateTestMessages = (props: CommonProps) => {
     const lorem = new LoremIpsum();
     const messageCount = 75;
@@ -45,7 +46,7 @@ export class Chat extends React.Component<ChatProps, ChatState> {
             messages: [
                 <DebugMessage {...this.props} />,
                 <UserMessage {...this.props} User={UserKey.jonii} Text="This is a test message" />,
-                ...generateTestMessages(this.props),
+                //...generateTestMessages(this.props),
                 ...(props.initialMessages ?? [])
             ],
             disableChat: true,
