@@ -215,6 +215,16 @@ body, #root {
   margin: 6px;
 }
 
+.Website {
+  width: 100%;
+  height: 100%;
+}
+
+.Game-Website {
+  background-color: black;
+  color:whitesmoke;
+}
+
 @keyframes shake {
   0% { transform: translate(0px, 1px) rotate(0deg); }
   100% { transform: translate(0px, -1px) rotate(0deg); }

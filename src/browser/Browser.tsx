@@ -3,7 +3,7 @@ import CommonProps from "../CommonProps";
 import { Flags } from "../Flags";
 import { get } from "../helpers";
 import { Window } from '../Window';
-import { SiteText } from "./SiteText";
+import { GameBrowserContent } from "./GameBrowserContent";
 
 export enum TabId {
     Games,
@@ -79,7 +79,7 @@ export class Browser extends React.Component<BrowserProps, BrowserState> {
                     {this.getTabs()}
                 </div>
                 <div className="ContentContainer">
-                    <SiteText {...this.props} textId='DEBUG.TestEvent' />
+                    <GameBrowserContent {...this.props} {...this.state} />
                 </div>
             </Window>
         );
