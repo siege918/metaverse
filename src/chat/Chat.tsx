@@ -48,7 +48,7 @@ export class Chat extends React.Component<ChatProps, ChatState> {
             messages: [
                 <DebugMessage {...this.props} />,
                 <UserMessage {...this.props} User={UserKey.jonii} Text="This is a test message" />,
-                //...generateTestMessages(this.props),
+                ...generateTestMessages(this.props),
                 ...(props.initialMessages ?? [])
             ],
             disableChat: true,
