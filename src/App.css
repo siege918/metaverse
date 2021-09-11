@@ -1,6 +1,6 @@
 html {
   height: calc(100% - 6px);
-  min-width: 430px;
+  min-width: 610px;
 }
 
 body, #root {
@@ -213,4 +213,9 @@ body, #root {
   width: 8px;
   height: 8px;
   margin: 4px;
+}
+
+@keyframes shake {
+  0% { transform: translate(0px, 1px) rotate(0deg); }
+  100% { transform: translate(0px, -1px) rotate(0deg); }
 }

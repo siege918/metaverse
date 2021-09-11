@@ -79,7 +79,7 @@ export class Browser extends React.Component<BrowserProps, BrowserState> {
                     {this.getTabs()}
                 </div>
                 <div className="ContentContainer">
-                    <a href='#' onClick={() => { this.props.triggerChatEvent("TestEvent") }}>Trigger the test event</a>
+                    <a href='#/' onClick={() => { this.props.triggerChatEvent("TestEvent") }}>Trigger the test event</a>
                 </div>
             </Window>
         );

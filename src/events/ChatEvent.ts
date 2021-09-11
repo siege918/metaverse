@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { UserKey } from "../chat/Users";
 
 export enum ChatEventType {

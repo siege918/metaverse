@@ -1,5 +1,4 @@
 import React from 'react';
-import User from '../User';
 import { UserKey, default as Users } from '../Users';
 
 import Message, { MessageType } from "./Message";

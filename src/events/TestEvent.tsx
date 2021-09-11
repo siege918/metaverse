@@ -1,6 +1,5 @@
-import UserMessage from "../chat/Messages/UserMessage";
 import { UserKey } from "../chat/Users";
-import { ChatEventItem, ChatEventType, ChatEvent } from "./ChatEvent";
+import { ChatEventType, ChatEvent } from "./ChatEvent";
 
 const testEvent: ChatEvent = [
     {
