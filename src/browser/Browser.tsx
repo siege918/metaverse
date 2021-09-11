@@ -2,6 +2,7 @@ import React from "react";
 import CommonProps from "../CommonProps";
 import { Flags } from "../Flags";
 import { Window } from '../Window';
+import { SiteText } from "./SiteText";
 
 export enum TabId {
     Games,
@@ -79,7 +80,7 @@ export class Browser extends React.Component<BrowserProps, BrowserState> {
                     {this.getTabs()}
                 </div>
                 <div className="ContentContainer">
-                    <a href='#/' onClick={() => { this.props.triggerChatEvent("TestEvent") }}>Trigger the test event</a>
+                    <SiteText {...this.props} textId='DEBUG.TestEvent' />
                 </div>
             </Window>
         );

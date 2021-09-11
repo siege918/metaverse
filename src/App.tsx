@@ -6,10 +6,13 @@ import { Flags, FlagMap } from './Flags';
 import { BrowserListener } from './BrowserListener';
 import ChatEventListener from './chat/ChatEventListener';
 
+import en from './strings/en.json';
+import { LocaleMap } from './CommonProps';
 export interface AppState {
   FlagMap: FlagMap;
   BrowserListener: BrowserListener;
   ChatEventListener: ChatEventListener;
+  LocaleStrings: LocaleMap;
 }
 
 class App extends React.Component<any, AppState> {
@@ -19,9 +22,9 @@ class App extends React.Component<any, AppState> {
     this.state = {
       FlagMap: {},
       BrowserListener: () => null,
-      ChatEventListener: () => null
+      ChatEventListener: () => null,
+      LocaleStrings: en as LocaleMap
     }
-    console.log(this.state);
   }
 
   setFlag = (flag: Flags, val: boolean) => {
