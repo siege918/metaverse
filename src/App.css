@@ -1,6 +1,6 @@
 html {
   height: calc(100% - 6px);
-  min-width: 610px;
+  min-width: 1200px;
 }
 
 body, #root {
