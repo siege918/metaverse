@@ -6,7 +6,28 @@ export type EventTriggerProps = {
     eventName: string;
 } & CommonProps;
 
-export class EventTrigger extends React.Component<EventTriggerProps> {
+interface EventTriggerState {
+    wasClicked: boolean;
+}
+
+export class EventTrigger extends React.Component<EventTriggerProps, EventTriggerState> {
+
+    constructor(props: EventTriggerProps) {
+        super(props);
+        const { FlagMap, eventName } = props;
+        const { triggeredFlag } = EventMap[eventName];
+
+        console.log(triggeredFlag);
+        if (triggeredFlag) {
+            console.log(FlagMap[triggeredFlag]);
+        }
+        console.log(!triggeredFlag || !FlagMap[triggeredFlag])
+
+        this.state = {
+            wasClicked: !!triggeredFlag && !!FlagMap[triggeredFlag]
+        }
+    }
+
     render() {
         const { triggerChatEvent, eventName, children } = this.props;
 
@@ -15,15 +36,17 @@ export class EventTrigger extends React.Component<EventTriggerProps> {
         const event = EventMap[eventName];
 
         if (event) {
-            const { activeFlag, triggeredFlag } = event;
+            const { activeFlag } = event;
 
-            isActive = (!activeFlag || this.props.FlagMap[activeFlag]) && (!triggeredFlag || !this.props.FlagMap[triggeredFlag]);
+            isActive = (!activeFlag || this.props.FlagMap[activeFlag]) && !this.state.wasClicked;
         }
 
         const onClick = () => {
             if (isActive) {
                 triggerChatEvent(eventName)
-                this.forceUpdate();
+                this.setState({
+                    wasClicked: true
+                })
             }
         }
 
