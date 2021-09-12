@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { UserKey, default as Users } from '../Users';
 
 import Message, { MessageType } from "./Message";
 
 export interface UserMessageProps {
     User: UserKey;
-    Text: string;
+    Text: string | ReactNode[];
 }
 
 export default class UserMessage extends Message<UserMessageProps> {

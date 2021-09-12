@@ -23,6 +23,7 @@ export class EventTrigger extends React.Component<EventTriggerProps> {
         const onClick = () => {
             if (isActive) {
                 triggerChatEvent(eventName)
+                this.forceUpdate();
             }
         }
 

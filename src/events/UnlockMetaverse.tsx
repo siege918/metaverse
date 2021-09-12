@@ -25,7 +25,7 @@ const testEventItems: ChatEventItem[] = [
 
 const testEvent: ChatEvent = {
     items: testEventItems,
-    triggeredFlag: Flags.HasClickedTestEvent
+    triggeredFlag: Flags.HasUnlockedMetaverseTracker
 }
 
 export default testEvent;

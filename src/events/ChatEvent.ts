@@ -13,7 +13,8 @@ export interface CommonChatEventItem {
 export interface UserMessageEventItem extends CommonChatEventItem {
     type: ChatEventType.User;
     UserKey: UserKey;
-    Text: string;
+    Text?: string;
+    TextId?: string;
 }
 
 export type ChatEventItem = UserMessageEventItem;

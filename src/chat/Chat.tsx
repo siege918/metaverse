@@ -7,7 +7,7 @@ import UserMessage from './Messages/UserMessage';
 import { UserKey } from './Users';
 import { LoremIpsum } from 'lorem-ipsum';
 import { EventMap } from '../events';
-import { get, timeout } from '../helpers';
+import { get, parseText, timeout } from '../helpers';
 
 interface ChatState {
     messages: ReactElement[];
@@ -40,6 +40,7 @@ export class Chat extends React.Component<ChatProps, ChatState> {
     private EventQueue: string[] = [];
 
     private getUIText = (id: string) => get(this.props.LocaleStrings, `Chat.UI.${id}`, '');
+    private getEventText = (eventId: string, textId: string) => get(this.props.LocaleStrings, `Chat.Events.${eventId}.${textId}`, '');
 
     constructor(props: ChatProps) {
         super(props);
@@ -132,10 +133,23 @@ export class Chat extends React.Component<ChatProps, ChatState> {
         if (event) {
             for (const eventItem of event.items) {
                 await timeout(eventItem.typingTime);
+                let text = eventItem.Text;
+
+                if (eventItem.TextId) {
+                    text = this.getEventText(eventId, eventItem.TextId);
+                }
+
+                if (!text) {
+                    console.warn(`Event ${eventId} has an invalid item.`);
+                    continue;
+                }
+
+                const itemList = parseText(text, this.props);
+
                 this.setState({
                     messages: [
                         ...this.state.messages,
-                        <UserMessage User={eventItem.UserKey} Text={eventItem.Text} {...this.props} />
+                        <UserMessage User={eventItem.UserKey} Text={itemList} {...this.props} />
                     ]
                 })
             }

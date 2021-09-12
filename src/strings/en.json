@@ -4,6 +4,26 @@
             "Header": "MSM Messenger",
             "Online": "Online",
             "Placeholder": "Type your chat message here..."
+        },
+        "Events": {
+            "TestEvent": {
+                "Jonii": {
+                    "Start": "Have you heard of this Metaverse thing? I made a <E=UnlockMetaverse>tracker app</> for it.",
+                    "End": "Just click it!"
+                },
+                "Chuck": {
+                    "Response": "I have no idea what the fuck you're talking about."
+                }
+            },
+            "UnlockMetaverse": {
+                "Jonii": {
+                    "Start": "There, you have the tab in your browser now.",
+                    "End": "I'll explain later"
+                },
+                "Chuck": {
+                    "Response": "Ok??????"
+                }
+            }
         }
     },
     "Browser": {
