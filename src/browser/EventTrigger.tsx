@@ -1,6 +1,6 @@
 import React from "react";
 import CommonProps from "../CommonProps";
-import { EventFlagMap } from "../events";
+import { EventMap } from "../events";
 
 export type EventTriggerProps = {
     eventName: string;
@@ -10,9 +10,15 @@ export class EventTrigger extends React.Component<EventTriggerProps> {
     render() {
         const { triggerChatEvent, eventName, children } = this.props;
 
-        const flag = EventFlagMap[eventName]?.visibleFlag;
+        let isActive = true;
 
-        const isActive = !flag || this.props.FlagMap[flag];
+        const event = EventMap[eventName];
+
+        if (event) {
+            const { activeFlag, triggeredFlag } = event;
+
+            isActive = (!activeFlag || this.props.FlagMap[activeFlag]) && (!triggeredFlag || !this.props.FlagMap[triggeredFlag]);
+        }
 
         const onClick = () => {
             if (isActive) {

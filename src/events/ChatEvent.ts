@@ -1,4 +1,5 @@
 import { UserKey } from "../chat/Users";
+import { Flags } from "../Flags";
 
 export enum ChatEventType {
     User
@@ -17,4 +18,9 @@ export interface UserMessageEventItem extends CommonChatEventItem {
 
 export type ChatEventItem = UserMessageEventItem;
 
-export type ChatEvent = ChatEventItem[];
+export interface ChatEvent {
+    items: ChatEventItem[];
+    activeFlag?: Flags;
+    triggeredFlag?: Flags;
+
+}

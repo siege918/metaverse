@@ -1,6 +1,7 @@
 export enum Flags {
     HasUnlockedMetaverseTracker = "METAVERSETRACKER",
-    HasUnlockedMovieEinstein = "MOVIEEINSTEIN"
+    HasUnlockedMovieEinstein = "MOVIEEINSTEIN",
+    HasClickedTestEvent = "TESTEVENT"
 }
 
 export interface FlagMap {

@@ -1,7 +1,8 @@
 import { UserKey } from "../chat/Users";
-import { ChatEventType, ChatEvent } from "./ChatEvent";
+import { Flags } from "../Flags";
+import { ChatEventType, ChatEvent, ChatEventItem } from "./ChatEvent";
 
-const testEvent: ChatEvent = [
+const testEventItems: ChatEventItem[] = [
     {
         type: ChatEventType.User,
         typingTime: 2500,
@@ -21,5 +22,11 @@ const testEvent: ChatEvent = [
         UserKey: UserKey.chuck
     }
 ];
+
+const testEvent: ChatEvent = {
+    items: testEventItems,
+    activeFlag: Flags.HasUnlockedMetaverseTracker,
+    triggeredFlag: Flags.HasClickedTestEvent
+}
 
 export default testEvent;
