@@ -6,7 +6,7 @@ import { ReactElement } from 'react';
 import UserMessage from './Messages/UserMessage';
 import { UserKey } from './Users';
 import { LoremIpsum } from 'lorem-ipsum';
-import EventMap from '../events';
+import { EventMap, EventFlagMap } from '../events';
 import { get, timeout } from '../helpers';
 
 interface ChatState {
@@ -124,6 +124,11 @@ export class Chat extends React.Component<ChatProps, ChatState> {
 
     processEvent = async (eventId: string) => {
         const event = EventMap[eventId];
+        const eventFlags = EventFlagMap[eventId];
+
+        if (eventFlags) {
+            this.props.FlagMap[eventFlags.triggeredFlag as string] = true;
+        }
 
         if (event) {
             for (const eventItem of event) {

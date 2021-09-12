@@ -1,3 +1,4 @@
+import { Flags } from '../Flags';
 import { ChatEvent } from './ChatEvent';
 import TestEvent from './TestEvent';
 
@@ -5,8 +6,21 @@ interface IEventMap {
     [key: string]: ChatEvent;
 }
 
-const EventMap: IEventMap = {
-    TestEvent 
+interface EventFlags {
+    visibleFlag?: Flags;
+    triggeredFlag?: Flags;
+}
+
+interface IEventFlagMap {
+    [key: string]: EventFlags
+}
+
+export const EventMap: IEventMap = {
+    TestEvent
 };
 
-export default EventMap;
+export const EventFlagMap: IEventFlagMap = {
+    "TestEvent": {
+        visibleFlag: Flags.HasUnlockedMetaverseTracker
+    }
+};
