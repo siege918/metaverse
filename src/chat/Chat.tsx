@@ -1,6 +1,5 @@
 import React from 'react';
 import { Window } from '../Window';
-import DebugMessage from './Messages/DebugMessage';
 import CommonProps from '../CommonProps';
 import { ReactElement } from 'react';
 import UserMessage from './Messages/UserMessage';
@@ -47,9 +46,6 @@ export class Chat extends React.Component<ChatProps, ChatState> {
         this.state = {
             userName: 'Me',
             messages: [
-                <DebugMessage {...this.props} />,
-                <UserMessage {...this.props} User={UserKey.jonii} Text="This is a test message" />,
-                ...generateTestMessages(this.props),
                 ...(props.initialMessages ?? [])
             ],
             disableChat: true,
@@ -131,6 +127,7 @@ export class Chat extends React.Component<ChatProps, ChatState> {
         }
 
         if (event) {
+            let count = 0;
             for (const eventItem of event.items) {
                 await timeout(eventItem.typingTime);
                 let text = eventItem.Text;
@@ -149,9 +146,10 @@ export class Chat extends React.Component<ChatProps, ChatState> {
                 this.setState({
                     messages: [
                         ...this.state.messages,
-                        <UserMessage User={eventItem.UserKey} Text={itemList} {...this.props} />
+                        <UserMessage User={eventItem.UserKey} Text={itemList} {...this.props} key={`${eventId}:${count}`} />
                     ]
                 })
+                count++;
             }
         }
     }

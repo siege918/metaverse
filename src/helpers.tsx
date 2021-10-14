@@ -1,5 +1,7 @@
 import React from 'react';
+import { TabId } from './browser/Browser';
 import { EventTrigger } from './browser/EventTrigger';
+import { NavTrigger } from './browser/NavTrigger';
 import CommonProps from './CommonProps';
 
 export function timeout(ms: number) {
@@ -17,7 +19,7 @@ export const get = (value: any, path: string, defaultValue: any) =>
       }
     }, value);
 
-const PARSE_REGEX = /<(?<type>[a-zA-Z]*)=(?<parameter>[a-zA-Z]*)>(?<contents>[^<]*)<\/>/gm;
+const PARSE_REGEX = /<(?<type>[a-zA-Z]*)=(?<parameter>[^>]*)>(?<contents>[^<]*)<\/>/gm;
 
 export const parseText = (val: string, props: CommonProps) => {
     const splitString = val.split(PARSE_REGEX);
@@ -33,12 +35,21 @@ export const parseText = (val: string, props: CommonProps) => {
         const args = splitString[counter + 2].split(';');
         const body = splitString[counter + 3];
 
-        if (type === 'E') {
+        switch (type) {
+          case 'E':
             output.push(
-              <EventTrigger {...props} eventName={args[0]}>
+              <EventTrigger {...props} eventName={args[0]} key={`${type}:${args.join('')}`}>
                 {body}
               </EventTrigger>
             )
+            break;
+          case 'N':
+            output.push(
+              <NavTrigger {...props} tabId={(args[0] as unknown) as TabId} pageId={args[1]} key={`${type}:${args.join('')}`}>
+                {body}
+              </NavTrigger>
+            );
+            break;
         }
 
         counter += 4;

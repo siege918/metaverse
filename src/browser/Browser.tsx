@@ -6,9 +6,9 @@ import { Window } from '../Window';
 import { GameBrowserContent } from "./GameBrowserContent";
 
 export enum TabId {
-    Games,
-    Movies,
-    Tracker
+    Games = "GAMES",
+    Movies = "MOVIES",
+    Tracker = "TRACKER"
 }
 
 interface BrowserState {
