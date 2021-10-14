@@ -59,3 +59,5 @@ export const parseText = (val: string, props: CommonProps) => {
 
     return output;
 }
+
+export const getAssetLink = (fileName: string) => `${process.env.PUBLIC_URL}/${fileName}`;

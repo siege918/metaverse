@@ -1,7 +1,7 @@
 import React from "react";
 import CommonProps from "../CommonProps";
 import { Flags } from "../Flags";
-import { get } from "../helpers";
+import { get, getAssetLink } from "../helpers";
 import { Window } from '../Window';
 import { GameBrowserContent } from "./GameBrowserContent";
 
@@ -49,7 +49,7 @@ export class Browser extends React.Component<BrowserProps, BrowserState> {
             .map(tab => (
             <div key={tab.id} onClick={this.getTabOnClick(tab.id)} className={`Tab ${tab.id === selectedTab ? 'Active' : ''}`}>
                 <div className="Favicon">
-                    <img alt={`Favicon for ${tab.text}`} src={tab.favicon ?? 'default-favicon.png'}/>
+                    <img alt={`Favicon for ${tab.text}`} src={getAssetLink(tab.favicon ?? 'default-favicon.png')}/>
                 </div>
                 <div className="TabText">
                     {tab.text}

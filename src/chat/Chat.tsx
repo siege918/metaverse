@@ -6,7 +6,7 @@ import UserMessage from './Messages/UserMessage';
 import { UserKey } from './Users';
 import { LoremIpsum } from 'lorem-ipsum';
 import { EventMap } from '../events';
-import { get, parseText, timeout } from '../helpers';
+import { get, getAssetLink, parseText, timeout } from '../helpers';
 
 interface ChatState {
     messages: ReactElement[];
@@ -71,7 +71,7 @@ export class Chat extends React.Component<ChatProps, ChatState> {
             <Window title={this.getUIText('Header')} className="Chat">
                 <div className="Header">
                     <div className="AvatarContainer">
-                        <img alt={`${userName}'s Avatar`} className="Avatar" src="/default.png" draggable="false" />
+                        <img alt={`${userName}'s Avatar`} className="Avatar" src={getAssetLink('default.png')} draggable="false" />
                     </div>
                     <div className="UsernameContainer">
                         <input autoComplete="off" value={userName} onChange={this.onUserNameChange} />
